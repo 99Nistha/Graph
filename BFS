@@ -17,3 +17,8 @@ public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
     }
     return bfs;
 }
+
+
+
+SC: queue, arrlist, visited: o(3n)
+TC: O(N)+ O(2* total degree)// all nodes + there nbr
