@@ -34,3 +34,6 @@ static void dfs(int index, ArrayList<ArrayList<Integer>> adj, boolean[] visited)
     }
     return;
 }
+
+SC: O(2N)// visited array, aux space
+TC: O(N)+ O(V+ 2*E)// each node and total nbr
