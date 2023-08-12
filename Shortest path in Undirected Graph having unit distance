@@ -1,0 +1,48 @@
+class Pair{
+    int vertex;
+    int weight;
+    public Pair(int vertex, int weight){
+        this.vertex= vertex;
+        this.weight= weight;
+    }
+}
+class Solution {
+    
+    public int[] shortestPath(int[][] edges,int n,int m ,int src) {
+        // make a adj list
+        ArrayList<ArrayList<Integer>> adj= new ArrayList<>();
+        for(int i=0; i<n; i++)adj.add(new ArrayList<>());
+        for(int[] edge: edges){
+            adj.get(edge[0]).add(edge[1]);
+            adj.get(edge[1]).add(edge[0]);
+        }
+        // bfs
+        boolean[] visited= new boolean[n];
+        int[] dist= new int[n];
+        Arrays.fill(dist, (int)(1e9));
+        Queue<Pair> queue= new LinkedList<>();
+        int level=0;
+        queue.add(new Pair(src, 0));
+        visited[src]=true;
+        dist[src]= 0;
+        while(!queue.isEmpty()){
+            level++;
+            int size= queue.size();
+            while(size!=0){
+                size--;
+                Pair node= queue.poll();
+                for(int nbr: adj.get(node.vertex)){
+                    dist[nbr]= Math.min(level, dist[nbr]);
+                    if(!visited[nbr]){
+                        queue.add(new Pair(nbr, dist[nbr]));
+                        visited[node.vertex]= true;
+                    }
+                }
+            }
+        }
+        for(int i=0;i<n; i++){
+            if(dist[i]==1e9) dist[i]=-1;
+        }
+        return dist;
+    }
+}
