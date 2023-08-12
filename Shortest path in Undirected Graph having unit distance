@@ -17,13 +17,11 @@ class Solution {
             adj.get(edge[1]).add(edge[0]);
         }
         // bfs
-        boolean[] visited= new boolean[n];
         int[] dist= new int[n];
         Arrays.fill(dist, (int)(1e9));
         Queue<Pair> queue= new LinkedList<>();
         int level=0;
         queue.add(new Pair(src, 0));
-        visited[src]=true;
         dist[src]= 0;
         while(!queue.isEmpty()){
             level++;
@@ -32,10 +30,9 @@ class Solution {
                 size--;
                 Pair node= queue.poll();
                 for(int nbr: adj.get(node.vertex)){
-                    dist[nbr]= Math.min(level, dist[nbr]);
-                    if(!visited[nbr]){
+                    if(level<dist[nbr]){
+                        dist[nbr]= level;
                         queue.add(new Pair(nbr, dist[nbr]));
-                        visited[node.vertex]= true;
                     }
                 }
             }
