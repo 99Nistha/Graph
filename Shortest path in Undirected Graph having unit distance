@@ -20,20 +20,14 @@ class Solution {
         int[] dist= new int[n];
         Arrays.fill(dist, (int)(1e9));
         Queue<Pair> queue= new LinkedList<>();
-        int level=0;
         queue.add(new Pair(src, 0));
         dist[src]= 0;
         while(!queue.isEmpty()){
-            level++;
-            int size= queue.size();
-            while(size!=0){
-                size--;
-                Pair node= queue.poll();
-                for(int nbr: adj.get(node.vertex)){
-                    if(level<dist[nbr]){
-                        dist[nbr]= level;
-                        queue.add(new Pair(nbr, dist[nbr]));
-                    }
+            Pair node= queue.poll();
+            for(int nbr: adj.get(node.vertex)){
+                if(dist[node.vertex]+1<dist[nbr]){
+                    dist[nbr]= dist[node.vertex]+1;
+                    queue.add(new Pair(nbr, dist[nbr]));
                 }
             }
         }
